@@ -1,0 +1,47 @@
+{
+  "name": "danidoble/routing",
+  "description": "A easy way to start with symfony-routing",
+  "type": "plugin",
+  "homepage": "https://github.com/danidoble/routing",
+  "license": "MIT",
+  "suggest": {
+  },
+  "keywords": [
+    "danidoble",
+    "routing",
+    "route",
+    "php routing"
+  ],
+  "authors": [
+    {
+      "name": "danidoble",
+      "email": "dani.doble.d@hotmail.com"
+    }
+  ],
+  "require": {
+    "php": "^7.3|^8.0",
+    "ext-json": "*",
+    "illuminate/support": "^8.58",
+    "ramsey/uuid": "^4.2",
+    "symfony/error-handler": "^5.3",
+    "symfony/routing": "^5.3",
+    "vlucas/phpdotenv": "^5.3"
+  },
+  "autoload": {
+    "files": [],
+    "psr-4": {
+      "Danidoble\\Routing\\": "Src"
+    },
+    "exclude-from-classmap": [
+      "/Tests/"
+    ]
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true,
+  "version": "v0.0.1"
+}
