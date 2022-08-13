@@ -1,6 +1,6 @@
 <?php
 /**
- * Created by (c)danidoble 2021.
+ * Created by (c)danidoble 2022.
  * @website https://github.com/danidoble
  * @website https://danidoble.com
  */
@@ -18,27 +18,35 @@ class Bootstrap
     /**
      * @var RouteCollection
      */
-    protected $routes;
+    protected RouteCollection $routes;
     /**
      * @var RequestContext
      */
-    protected $context;
+    protected RequestContext $context;
     /**
      * @var UrlMatcher
      */
-    protected $matcher;
+    protected UrlMatcher $matcher;
     /**
-     * @var
+     * @var string|null
      */
-    public $accept, $uri, $url;
+    public ?string $accept;
+    /**
+     * @var mixed
+     */
+    public mixed $url;
+    /**
+     * @var string|array|string[]
+     */
+    public string|array $uri;
     /**
      * @var string
      */
-    protected $error_404 = __DIR__ . "/views/404.html";
+    protected string $error_404 = __DIR__ . "/views/404.html";
     /**
      * @var string
      */
-    protected $error_405 = __DIR__ . "/views/405.html";
+    protected string $error_405 = __DIR__ . "/views/405.html";
 
     /**
      *
@@ -58,9 +66,9 @@ class Bootstrap
     }
 
     /**
-     *
+     * @return void
      */
-    protected function setParams()
+    protected function setParams(): void
     {
         $params = [
             "cookies" => $_COOKIE,
@@ -74,9 +82,9 @@ class Bootstrap
     }
 
     /**
-     *
+     * @return void
      */
-    protected function setConfig()
+    protected function setConfig(): void
     {
         $this->context->setPathInfo($this->uri);
         $this->context->setBaseUrl($this->url);
@@ -87,9 +95,11 @@ class Bootstrap
     }
 
     /**
+     * @param $view
+     * @return void
      * @throws FileNotFoundException
      */
-    protected function setViewError404($view)
+    protected function setViewError404($view): void
     {
         $this->setViewErrors(404, $view);
     }
@@ -103,9 +113,11 @@ class Bootstrap
     }
 
     /**
+     * @param $view
+     * @return void
      * @throws FileNotFoundException
      */
-    protected function setViewError405($view)
+    protected function setViewError405($view): void
     {
         $this->setViewErrors(405, $view);
     }
@@ -121,11 +133,12 @@ class Bootstrap
     /**
      * @param $no
      * @param $view
+     * @return void
      * @throws FileNotFoundException
      * @throws ViewErrorCodeNotFoundException
      * @internal
      */
-    private function setViewErrors($no, $view)
+    private function setViewErrors($no, $view): void
     {
         if (!file_exists($view)) {
             throw new FileNotFoundException("View not found", $no);
@@ -144,8 +157,9 @@ class Bootstrap
 
     /**
      * @param $no
+     * @return void
      */
-    protected function showError($no)
+    protected function showError($no): void
     {
         switch ($no) {
             case 404:
@@ -170,8 +184,9 @@ class Bootstrap
 
     /**
      * @param $no
+     * @return void
      */
-    protected function showErrorJson($no)
+    protected function showErrorJson($no): void
     {
         $json = false;
         if ($this->accept === "application/json") {
@@ -193,6 +208,5 @@ class Bootstrap
             exit();
         }
     }
-
 
 }

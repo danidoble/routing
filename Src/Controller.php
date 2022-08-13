@@ -1,6 +1,6 @@
 <?php
 /**
- * Created by (c)danidoble 2021.
+ * Created by (c)danidoble 2022.
  * @website https://github.com/danidoble
  * @website https://danidoble.com
  */
@@ -16,23 +16,23 @@ class Controller implements IController
     /**
      * @var RequestContext
      */
-    protected $_context;
+    protected RequestContext $_context;
     /**
      * @var Route
      */
-    protected $_parent;
+    protected Route $_parent;
     /**
      * @var RouteCollection
      */
-    protected $_routes;
+    protected RouteCollection $_routes;
     /**
      * @var UrlMatcher
      */
-    protected $_matcher;
+    protected UrlMatcher $_matcher;
     /**
-     * @var
+     * @var array
      */
-    protected $params;
+    protected array $params;
 
     /**
      * @param RequestContext $_context
@@ -65,10 +65,11 @@ class Controller implements IController
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @return mixed|null
      */
-    public function param($name){
+    public function param(string $name): mixed
+    {
         $method = mb_convert_case($this->_context->getMethod(),MB_CASE_LOWER,"UTF-8");
         if($method === "get"){
             $global = $this->_context->getParameter('get');

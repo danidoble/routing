@@ -1,6 +1,6 @@
 <?php
 /**
- * Created by (c)danidoble 2021.
+ * Created by (c)danidoble 2022.
  * @website https://github.com/danidoble
  * @website https://danidoble.com
  */
@@ -24,23 +24,24 @@ interface IRoute
      * @param string|null $condition A condition that should evaluate to true for the route to match
      * @throws ClassNameNotFoundException
      */
-    public function add(string $path, array $execute, array $defaults = [], array $requirements = [], array $options = [], ?string $host = '', $schemes = [], $methods = [], ?string $condition = ''): symfonyRoute;
+    public function add(string $path, array $execute, array $defaults = [], array $requirements = [], array $options = [], ?string $host = '', array|string $schemes = [], array|string $methods = [], ?string $condition = ''): symfonyRoute;
 
     /**
      * @return void
      */
-    public function dispatch();
+    public function dispatch(): void;
 
     /**
-     * @param $no
-     * @param $view
+     * @param int $no
+     * @param string $view
+     * @return void
      * @throws ClassNameNotFoundException
      */
-    public function error($no, $view);
+    public function error(int $no, string $view): void;
 
     /**
-     * @param $no
+     * @param int $no
      * @return string|null
      */
-    public function getError($no): ?string;
+    public function getError(int $no): ?string;
 }

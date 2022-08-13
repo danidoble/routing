@@ -1,6 +1,6 @@
 <?php
 /**
- * Created by (c)danidoble 2021.
+ * Created by (c)danidoble 2022.
  * @website https://github.com/danidoble
  * @website https://danidoble.com
  */
@@ -30,7 +30,7 @@ class Route extends Bootstrap implements IRoute
      * @param string|null $condition A condition that should evaluate to true for the route to match
      * @throws ClassNameNotFoundException
      */
-    public function add(string $path, array $execute, array $defaults = [], array $requirements = [], array $options = [], ?string $host = '', $schemes = [], $methods = [], ?string $condition = ''): symfonyRoute
+    public function add(string $path, array $execute, array $defaults = [], array $requirements = [], array $options = [], ?string $host = '', array|string $schemes = [], array|string $methods = [], ?string $condition = ''): symfonyRoute
     {
         if (empty($execute) || !isset($execute[0])) {
             throw new ClassNameNotFoundException("Class name is required", 500);
@@ -50,31 +50,32 @@ class Route extends Bootstrap implements IRoute
     /**
      * @return void
      */
-    public function dispatch()
+    public function dispatch(): void
     {
         try {
             $this->setConfig();
             $route_params = $this->matcher->match($this->context->getPathInfo());
             $_class = "\\" . $route_params['_controller_'];
-            $route_to_invoke = new $_class($this->context,$this->routes,$this->matcher,$this);
-            if($route_params['_function_'] !== null) {
+            $route_to_invoke = new $_class($this->context, $this->routes, $this->matcher, $this);
+            if ($route_params['_function_'] !== null) {
                 $route_to_invoke->{$route_params['_function_']}();
             }
-        } catch (ResourceNotFoundException $e) {
+        } catch (ResourceNotFoundException) {
             $this->showError(404);
-        }
-        catch (MethodNotAllowedException $e){
+        } catch (MethodNotAllowedException) {
             $this->showError(405);
         }
     }
 
     /**
-     * @param $no
-     * @param $view
+     * @param int $no
+     * @param string $view
+     * @return void
      * @throws FileNotFoundException
      */
-    public function error($no,$view){
-        switch ($no){
+    public function error(int $no, string $view): void
+    {
+        switch ($no) {
             case 404:
                 $this->setViewError404($view);
                 break;
@@ -82,22 +83,20 @@ class Route extends Bootstrap implements IRoute
                 $this->setViewError405($view);
                 break;
             default:
-                throw new ViewErrorCodeNotFoundException("Error code not found",$no);
+                throw new ViewErrorCodeNotFoundException("Error code not found", $no);
         }
     }
 
     /**
-     * @param $no
+     * @param int $no
      * @return string|null
      */
-    public function getError($no): ?string
+    public function getError(int $no): ?string
     {
-        switch ($no){
-            case 404:
-                return $this->getViewError404();
-            case 405:
-                return $this->getViewError405();
-        }
-        return null;
+        return match ($no) {
+            404 => $this->getViewError404(),
+            405 => $this->getViewError405(),
+            default => null,
+        };
     }
 }

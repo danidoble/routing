@@ -1,23 +1,28 @@
 <?php
 /**
- * Created by (c)danidoble 2021.
+ * Created by (c)danidoble 2022.
  * @website https://github.com/danidoble
  * @website https://danidoble.com
  */
 
 namespace Danidoble\Routing;
 
-use Symfony\Component\Routing\Matcher\UrlMatcher;
-use Symfony\Component\Routing\RequestContext;
-use Symfony\Component\Routing\RouteCollection;
-
-class Testing extends Controller
+class Testing extends \Danidoble\Routing\Controller
 {
     public function index()
     {
+        print_r("your page");
+//        dump($this->getParent());
+//        dump($this->param('demo'));
+    }
+
+    public function help()
+    {
+        print_r("help page");
+    }
+
+    public function danidoble()
+    {
         print_r("Created by danidoble");
-        //dump($this->getParent());
-        //dump($this->param('demo'));
-        //dd($this->getParams());
     }
 }

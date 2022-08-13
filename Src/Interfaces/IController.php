@@ -1,6 +1,6 @@
 <?php
 /**
- * Created by (c)danidoble 2021.
+ * Created by (c)danidoble 2022.
  * @website https://github.com/danidoble
  * @website https://danidoble.com
  */
@@ -33,8 +33,8 @@ interface IController
     public function getParent(): Route;
 
     /**
-     * @param $name
+     * @param string $name
      * @return mixed|null
      */
-    public function param($name);
+    public function param(string $name): mixed;
 }
