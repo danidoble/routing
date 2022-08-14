@@ -11,7 +11,12 @@ composer require danidoble/routing
 ```Debug::enable();``` This is only for debug mode, change it for a custom page,
 check [symfony/error-handler](https://github.com/symfony/error-handler)
 
-Make a file named ```.env``` with ```APP_URL="https://localhost/"```
+Make a file named ```.env``` with 
+```
+APP_URL="https://localhost/"
+APP_DEBUG=true
+APP_VIEW_DIR="views"
+```
 change localhost for your url site
 
 ```php
