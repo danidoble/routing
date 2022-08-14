@@ -5,6 +5,8 @@
   "homepage": "https://github.com/danidoble/routing",
   "license": "MIT",
   "suggest": {
+    "spatie/ignition": "Render errors in a beautilful page",
+    "symfony/error-handler": "Render errors in page"
   },
   "keywords": [
     "danidoble",
@@ -23,12 +25,16 @@
     "ext-json": "*",
     "illuminate/support": "^v9.24",
     "ramsey/uuid": "^4.4",
-    "symfony/error-handler": "^v6.1",
-    "symfony/routing": "^v6.1",
+    "symfony/routing": "^v6.1"
+  },
+  "require-dev": {
+    "spatie/ignition": "^1.3",
     "vlucas/phpdotenv": "^v5.4"
   },
   "autoload": {
-    "files": [],
+    "files": [
+      "Src/global/global.php"
+    ],
     "psr-4": {
       "Danidoble\\Routing\\": "Src"
     },

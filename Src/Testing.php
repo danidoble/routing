@@ -11,9 +11,10 @@ class Testing extends \Danidoble\Routing\Controller
 {
     public function index()
     {
-        print_r("your page");
-//        dump($this->getParent());
-//        dump($this->param('demo'));
+        $data = 'data from php controller';
+        dView('index', [
+            'data' => $data,
+        ]);
     }
 
     public function help()

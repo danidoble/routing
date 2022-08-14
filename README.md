@@ -2,7 +2,7 @@
 
 A simple way to stat with symfony/routing
 
-Require php 7.3^
+PHP 8.1 is required for version ^v1.0
 
 ```
 composer require danidoble/routing
@@ -24,6 +24,9 @@ include __DIR__ . "/vendor/autoload.php";
 // This is only for debug mode, change it for a custom page, check [symfony/error-handler](https://github.com/symfony/error-handler)
 Debug::enable();
 
+$base_path = __DIR__ . DIRECTORY_SEPARATOR; // base path of your project
+$base_view_path = env('APP_VIEW_DIR','views'); // route of your directory of views
+\Danidoble\Routing\View::$BASE_VIEW_PATH = $base_path . env('APP_VIEW_DIR'); // example: /home/your/project/views
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__");
 $dotenv->load();
 
@@ -68,7 +71,7 @@ class Testing extends \Danidoble\Routing\Controller
 }
 ```
 
-If you want to overwrite ```__construct()``` be sure to apply some code like below  
+If you want to overwrite ```__construct()``` be sure to apply some code like below
 
 ```php
 public function __construct(RequestContext $_context, RouteCollection $_routes, UrlMatcher $_matcher, Route $_parent)
