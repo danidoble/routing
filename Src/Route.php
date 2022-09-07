@@ -13,6 +13,7 @@ use Danidoble\Routing\Exceptions\ClassNameNotFoundException;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Symfony\Component\Routing\Exception\MethodNotAllowedException;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\Routing\Route as symfonyRoute;
 use Ramsey\Uuid\Uuid;
 
@@ -44,7 +45,25 @@ class Route extends Bootstrap implements IRoute
 
         $route = new symfonyRoute($path, $defaults, $requirements, $options, $host, $schemes, $methods, $condition);
         $this->routes->add($defaults['_name_'], $route);
+        $this->routes_names = array_keys($this->routes->all());
         return $route;
+    }
+
+    /**
+     * Get route by name
+     * @param string $name
+     * @param bool $string
+     * @return string|symfonyRoute
+     */
+    public function get(string $name, bool $string = true): string|symfonyRoute
+    {
+        if (!in_array($name, $this->routes_names)) {
+            throw new RouteNotFoundException("Route $name not found");
+        }
+        if ($string) {
+            return $this->routes->all()[$name]->getPath();
+        }
+        return $this->routes->all()[$name];
     }
 
     /**

@@ -16,6 +16,10 @@ use Symfony\Component\Routing\RouteCollection;
 class Bootstrap
 {
     /**
+     * @var array
+     */
+    protected array $routes_names = [];
+    /**
      * @var RouteCollection
      */
     protected RouteCollection $routes;
