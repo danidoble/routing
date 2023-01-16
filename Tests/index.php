@@ -7,6 +7,10 @@
 
 $base_path = __DIR__ . DIRECTORY_SEPARATOR; // base path of app
 
+if(!file_exists(__DIR__.'/.env')){
+    die("Copy \".env.example\" file to \".env\" and modify the content");
+}
+
 include __DIR__ . "/../vendor/autoload.php";
 $dotenv = Dotenv\Dotenv::createImmutable($base_path);
 $dotenv->load();

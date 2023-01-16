@@ -23,13 +23,13 @@
   "require": {
     "php": "^8.1",
     "ext-json": "*",
-    "illuminate/support": "^v9.28",
-    "ramsey/uuid": "^4.4",
-    "symfony/routing": "^v6.1"
+    "illuminate/support": "^v9.47.0",
+    "ramsey/uuid": "^4.7.3",
+    "symfony/routing": "^v6.2.3"
   },
   "require-dev": {
-    "spatie/ignition": "^1.4",
-    "vlucas/phpdotenv": "^v5.4"
+    "spatie/ignition": "^1.4.1",
+    "vlucas/phpdotenv": "^v5.5.0"
   },
   "autoload": {
     "files": [
@@ -49,5 +49,5 @@
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
-  "version": "v1.0.1"
+  "version": "v1.0.2"
 }
