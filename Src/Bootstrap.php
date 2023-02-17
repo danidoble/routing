@@ -9,6 +9,7 @@ namespace Danidoble\Routing;
 
 use Danidoble\Routing\Exceptions\ViewErrorCodeNotFoundException;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
@@ -59,13 +60,9 @@ class Bootstrap
     {
         $this->routes = new RouteCollection();
         $this->context = new RequestContext();
+        $this->context->fromRequest(Request::createFromGlobals());
         $this->matcher = new UrlMatcher($this->routes, $this->context);
-
-        $dir_arr = explode('/', realpath($_SERVER['SCRIPT_FILENAME']));
-        $dir = str_replace(DIRECTORY_SEPARATOR . $dir_arr[count($dir_arr) - 1], "", realpath($_SERVER['SCRIPT_FILENAME']));
-        $dir = str_replace($_SERVER['DOCUMENT_ROOT'], "", $dir);
-        $x_uri = explode("?", $_SERVER['REQUEST_URI']);
-        $this->uri = str_replace($dir, '', str_replace($dir, '', $x_uri[0]));
+        $this->uri = $this->context->getPathInfo();
         $this->url = env("APP_URL", "http://localhost");
     }
 
